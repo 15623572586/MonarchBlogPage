@@ -1,12 +1,5 @@
 <template>
   <div>
-    <!-- <div class="ms-title">
-        <h1>This is a LOGIN page.</h1>
-    </div>
-    <el-input v-model="loginForm.loginName" placeholder="请输入用户名" clearable style="width:200px;"></el-input><br>
-    <el-input placeholder="请输入密码" v-model="loginForm.loginPassWord" show-password style="width:200px;"></el-input><br>
-    <el-button type="primary">确定</el-button> -->
-  <!-- </div> -->
     <div class="ms-title">
         <h1>This is the login page.</h1>
     </div>
@@ -21,6 +14,9 @@
         </el-form-item>
         <div class="login-btn">
             <el-button type="primary" @click="login()">登录</el-button>
+        </div>
+        <div class="login-btn">
+            <el-button type="info" @click="sinUp()" style="margin-top:10px;">注册</el-button>
         </div>
       </el-form>
     </div>
@@ -60,6 +56,9 @@ export default {
           }) 
         }
       });
+    },
+    sinUp(){
+      this.$router.push("/sinup")
     }
   }
 
@@ -83,7 +82,7 @@ export default {
     }
     .ms-login{
         width:300px;
-        height:200px;
+        height:250px;
         margin: auto;
         margin-top:40px;
         padding:40px;
