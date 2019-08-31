@@ -17,7 +17,7 @@
             <el-input v-model="ruleForm.loginName" placeholder="请输入账号"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-            <el-input type="password" placeholder="请输入密码" v-model="ruleForm.password"></el-input>
+            <el-input type="password" placeholder="请输入密码" v-model="ruleForm.password" @keyup.enter.native="login()"></el-input>
         </el-form-item>
         <div class="login-btn">
             <el-button type="primary" @click="login()">登录</el-button>
@@ -49,19 +49,17 @@ export default {
   },
   methods:{
     login(){
-      var form={
-        loginName:this.ruleForm.loginName,
-        password:this.ruleForm.password
-      }
-      console.log(form)
-      fetch("POST","/login" ,form).then(result=>{
-        // if(result.data){
-        //     document.cookie = "Login=" + self.ruleForm.loginName + '-' + a;
-        //     self.$router.push("/index")
-        // }else{
-        //     self.openMessage("账号密码错误");
-        // }
-      })  
+      const self = this;
+      this.$refs["ruleForm"].validate((valid) => {
+        if (valid) {
+          var form={
+            loginName:this.$md5(self.ruleForm.loginName),
+            password:this.$md5(self.ruleForm.password)
+          }
+          fetch("POST","/login" ,form).then(result=>{
+          }) 
+        }
+      });
     }
   }
 
