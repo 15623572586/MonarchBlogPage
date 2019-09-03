@@ -117,6 +117,8 @@
 
 <script>
 import axios from '@/axiosConfig.js'
+import Crypto from '@/crypto.js'
+import store from '@/store.js'
 
 export default {
   data(){
@@ -154,20 +156,25 @@ export default {
   },
   methods:{
     login(){
-      const self = this;
+      var self = this;
       this.$refs["ruleForm"].validate((valid) => {
         if (valid) {
           var loginData={
-            loginName:this.$md5(self.ruleForm.loginName),
-            password:this.$md5(self.ruleForm.password)
+            loginName:Crypto.set(self.ruleForm.loginName),
+            password:Crypto.set(self.ruleForm.password)
           }
           axios("POST","/login" ,loginData)
           .then(result=>{ 
-            if(result.data=="0"){
-              this.open("登录成功");
+            if(result.data.error==null){
+              store.commit("setUserStatus",result.data.userInfo);
+              document.cookie ="userId:"+result.data.userInfo.userId;
+              this.$router.push("/home");
             }else{
-              this.open(result.data);
+              this.open(result.data.error);
             }
+          })
+          .catch(error=>{
+            this.$alert(error, "提示", {confirmButtonText: "确定"})
           }); 
         }
       });
@@ -181,10 +188,14 @@ export default {
           this.Cities = [];
         }
       })
+      .catch(error=>{
+        this.$alert(error, "提示", {confirmButtonText: "确定"})
+      });
     },
     getCities(provinceId){
       if(this.notCityIds.indexOf(provinceId)==-1){
         this.Cities = [];
+        this.sinupForm.userAdrCity = "";
         this.citiesSeletDis = false;
         var provinceIdData = {
           provinceId: provinceId,
@@ -195,6 +206,9 @@ export default {
             this.Cities = result.data;
           }
         })
+        .catch(error=>{
+          this.$alert(error, "提示", {confirmButtonText: "确定"})
+        });
       }else{
         this.citiesSeletDis = true;
         this.Cities = [];
@@ -222,17 +236,21 @@ export default {
         userSex: this.sinupForm.userSex,
         userBirthDate: this.sinupForm.userBirthDate,
         userAdrProv: this.sinupForm.userAdrProv,
-        userAdrCity: this.sinupForm.userAdrCity
+        userAdrCity: this.sinupForm.userAdrCity,
+        action: "sinup"
       };
       //加密注册
-      formatData.userPassword = this.$md5(formatData.userPassword);
-      formatData.userId = this.$md5(formatData.userId);
+      formatData.userPassword = Crypto.set(formatData.userPassword);
+      formatData.userId = Crypto.set(formatData.userId);
       axios("POST", "/sinup", formatData).then(result => {
         if (result.data=="0") {
-          console.log(result.data);
           this.open("恭喜您，注册成功,请前往登录！");
           this.dialogFormVisible = false;
+        }else{
+          this.open(result.data);
         }
+      }).catch(error=>{
+        this.$alert(error, "提示", {confirmButtonText: "确定"})
       });
     },
 

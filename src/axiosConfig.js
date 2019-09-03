@@ -15,8 +15,9 @@ const fetch = (method, url, formData) => {
   return new Promise((resolve, reject) => {
     axios(httpDefault).then(resData => {
       resolve(resData)
-    }).catch(e => {
-      reject(e)
+    })
+    .catch(e => {
+      console.log(e)
     })
   })
 }
