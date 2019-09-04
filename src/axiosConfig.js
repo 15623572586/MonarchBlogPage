@@ -17,7 +17,7 @@ const fetch = (method, url, formData) => {
       resolve(resData)
     })
     .catch(e => {
-      console.log(e)
+      reject(e)
     })
   })
 }

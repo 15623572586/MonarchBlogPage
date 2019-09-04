@@ -166,16 +166,19 @@ export default {
           axios("POST","/login" ,loginData)
           .then(result=>{ 
             if(result.data.error==null){
-              store.commit("setUserStatus",result.data.userInfo);
+              // store.commit("setUserStatus",result.data.userInfo);
               document.cookie ="userId:"+result.data.userInfo.userId;
-              this.$router.push("/home");
+              self.$router.push("/home");
             }else{
-              this.open(result.data.error);
+              self.open(result.data.error);
             }
           })
           .catch(error=>{
-            this.$alert(error, "提示", {confirmButtonText: "确定"})
+            self.$alert(error, "提示", {confirmButtonText: "确定"})
           }); 
+        } else {
+            // self.openMessage("请检查账号密码格式");
+            return false;
         }
       });
     },

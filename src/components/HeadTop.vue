@@ -9,7 +9,7 @@
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b"
-      style="margin-right:20px;"
+      style="width:100%"
     >
       <el-menu-item index="1" style="margin-left:40px;">博客中心</el-menu-item>
       <el-menu-item index="3">消息中心</el-menu-item>
