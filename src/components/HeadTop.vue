@@ -25,6 +25,7 @@
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item class="clearfix">个人中心</el-dropdown-item>
           <el-dropdown-item class="clearfix" @click.native="getUserInfoList()">用户管理</el-dropdown-item>
+          <el-dropdown-item class="clearfix" @click.native="logOut()">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </el-menu>
@@ -32,10 +33,10 @@
 </template>
 
 <script>
-import Login from "@/views/Login.vue";
+// import Login from "@/views/Login.vue";
 
 export default {
-  Login,
+  // Login,
   data() {
     return {
       activeIndex2: "1",
@@ -47,6 +48,10 @@ export default {
     },
     getUserInfoList(){
       this.$emit("getUserInfoList");
+    },
+    logOut(){
+      document.cookie = 'userId' + '=;  expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+      this.$router.push("/")
     }
   }
 };

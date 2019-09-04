@@ -45,10 +45,9 @@ router.beforeEach(function (to, from, next) {
     var cookies = document.cookie.split(";");
     if(cookies.length>0){
       for(var i=0;i<cookies.length;i++){
-        var cookie = cookies[i].split(":");
+        var cookie = cookies[i].split("=");
         var key = cookie[0];
         var value = cookie[1];
-        console.log(value)
         if(key.trim()=="userId"){    //登录过
           userId = value.trim();
           hasLogin = true;
@@ -58,9 +57,10 @@ router.beforeEach(function (to, from, next) {
     }
   }
   if(hasLogin){ //当前浏览器已经登录
-    if(to.path=="/login"){
-      next({path:"/home"})
-    }else if(to.path=="/home"){
+    if(to.path=="/login" || to.path=="/"){
+      next("/home")
+    }else{
+      next();
       var userIdData = {
         userId: userId,
       }
@@ -75,9 +75,9 @@ router.beforeEach(function (to, from, next) {
         }
       })
       .catch(error=>{
+        alert("来自router.js的错误："+error);
         next("/login")
       })
-      next();
     }
   }else{  //没有登录，返回登录页面
     if(to.path=="/login"){

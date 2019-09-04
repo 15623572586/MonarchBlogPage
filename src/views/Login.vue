@@ -15,8 +15,10 @@
         <div class="login-btn">
             <el-button type="primary" @click="login()">登录</el-button>
         </div>
-        <div class="login-btn">
-            <el-button type="text" @click="getProvinces()">注册</el-button>
+        <div class="sinup-btn">
+            <el-button type="text" @click="getProvinces()"><i>注册</i> </el-button>
+            <el-button type="text"><i>|</i></el-button>
+            <el-button type="text"><i>忘记密码?</i></el-button>
         </div>
       </el-form>
     </div>
@@ -118,7 +120,6 @@
 <script>
 import axios from '@/axiosConfig.js'
 import Crypto from '@/crypto.js'
-import store from '@/store.js'
 
 export default {
   data(){
@@ -167,7 +168,7 @@ export default {
           .then(result=>{ 
             if(result.data.error==null){
               // store.commit("setUserStatus",result.data.userInfo);
-              document.cookie ="userId:"+result.data.userInfo.userId;
+              document.cookie ="userId="+result.data.userInfo.userId;
               self.$router.push("/home");
             }else{
               self.open(result.data.error);
@@ -287,26 +288,29 @@ export default {
     
   }
   .ms-message{
-      margin: 0px auto 40px auto;
-      text-align: center;
-      font-size:30px;
-      color:#817b58;
-      border: 1px solid #7ed0e5;
-      background-color: #edebe1;
-      line-height: 18px;
-      font-size: 85%;
+    margin: 0px auto 40px auto;
+    text-align: center;
+    font-size:30px;
+    color:#817b58;
+    border: 1px solid #7ed0e5;
+    background-color: #edebe1;
+    line-height: 18px;
+    font-size: 85%;
   }
   .ms-login{
-      width:300px;
-      height:250px;
-      margin: auto;
-      margin-top:40px;
-      padding:40px;
-      border-radius: 5px;
-      background: url("../assets/01.jpg");
+    width:300px;
+    height:250px;
+    margin: auto;
+    margin-top:40px;
+    padding:40px;
+    border-radius: 5px;
+    background: url("../assets/01.jpg");
   }
   .login-btn{
       text-align: center;
+  }
+  .sinup-btn{
+    text-align: right;
   }
   .login-btn button{
     width:100%;
