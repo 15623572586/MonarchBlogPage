@@ -120,6 +120,7 @@
 <script>
 import axios from '@/axiosConfig.js'
 import Crypto from '@/crypto.js'
+import store from '@/store.js'
 
 export default {
   data(){
@@ -167,7 +168,7 @@ export default {
           axios("POST","/login" ,loginData)
           .then(result=>{ 
             if(result.data.error==null){
-              // store.commit("setUserStatus",result.data.userInfo);
+              store.commit("setUserStatus",result.data.userInfo);
               document.cookie ="userId="+result.data.userInfo.userId;
               self.$router.push("/home");
             }else{
