@@ -4,6 +4,7 @@ import Login from './views/Login.vue'
 import Home from './views/Home.vue'
 import store from '@/store.js'
 import axios from '@/axiosConfig.js'
+import Crypto from '@/crypto.js'
 
 
 Vue.use(Router)
@@ -59,19 +60,40 @@ router.beforeEach(function (to, from, next) {
   if(hasLogin){ //当前浏览器已经登录
     if(to.path=="/login" || to.path=="/"){
       next("/home")
+      // var userIdData = {
+      //   userId: userId,
+      // }
+      // console.log("userIdData",userIdData)
+      // axios("GET","/getOneUserInfo",userIdData)
+      // .then(result=>{
+      //   if(result.data.error==null){
+      //     var userInfo = {
+      //       userId : result.data.userId,
+      //       userName: result.data.userName,
+      //     }
+      //     store.commit("setUserStatus",userInfo);
+      //   }
+      // })
+      // .catch(error=>{
+      //   alert("来自router.js的错误："+error);
+      //   next("/login")
+      // })
     }else{
       next();
       var userIdData = {
-        userId: userId,
+        userId: Crypto.set(userId),
       }
       axios("GET","/getOneUserInfo",userIdData)
       .then(result=>{
-        if(result.data.error==null){
+        console.log("userIdData",userIdData)
+        if(result.data.error==null || result.data.error==undefined){
           var userInfo = {
             userId : result.data.userId,
             userName: result.data.userName,
           }
           store.commit("setUserStatus",userInfo);
+        }else{
+          alert("来自router.js的错误："+result.data.error);
         }
       })
       .catch(error=>{

@@ -1,13 +1,14 @@
 <template>
 	<el-container class="page-background">
-		<el-row type="flex" class="row-bg" justify="center">
-			<el-col :span="18"><div class="grid-content"></div>
+		<el-row type="flex" class="row-bg" justify="center" style="margin-left:200px;">
+			<el-col :span="24"><div class="grid-content"></div>
 				<el-header>
-					<head-top class="home" @getUserInfoList="getUserInfoList"></head-top>
+					<head-top class="home" @getUserInfoList="getUserInfoList" @showComponent="showComponent"></head-top>
 				</el-header>
 				<el-container>
 					<el-aside width="340px"><i style="color:white">Aside</i></el-aside>
 					<el-main>
+						<publish-article @open="open" ref="publishArticle" v-show="publishArticleFlag"></publish-article>
 						<user-management @open="open" ref="userManagement" v-show="userManagementFlag"></user-management>
 					</el-main>
 				</el-container>
@@ -20,24 +21,34 @@
 <script>
 import headTop from "@/components/HeadTop.vue";
 import userManagement from "@/components/UserManagement.vue";
+import publishArticle from "@/components/PublishArticle.vue"
 
 export default {
 	components:{
 		headTop,
 		userManagement,
+		publishArticle,
 	},
 	data(){
 		return{
 			userManagementFlag:false,
+			publishArticleFlag:false,
 		}
 	},
 	methods:{
 		getUserInfoList(){
 			this.userManagementFlag = true;
+			this.publishArticleFlag = false,
 			setTimeout(() => {
 				this.$refs.userManagement.getUserInfoList();
 			}, 10)
 			
+		},
+		showComponent(component){
+			if(component=="发表文章"){
+				this.publishArticleFlag = true;
+				this.userManagementFlag = false;
+			}
 		},
 		
 		//弹窗提示内容

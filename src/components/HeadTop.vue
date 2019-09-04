@@ -11,11 +11,10 @@
       active-text-color="#ffd04b"
       style="width:100%"
     >
-      <el-menu-item index="1" style="margin-left:40px;">博客中心</el-menu-item>
-      <el-menu-item index="3">消息中心</el-menu-item>
-      <el-menu-item index="4">
+      <el-menu-item index="博客中心" style="margin-left:40px;">博客中心</el-menu-item>
+      <el-menu-item index="消息中心">消息中心</el-menu-item>
+      <el-menu-item index="发表文章">发表文章</el-menu-item>
         <!-- <a href="# " target="_blank">订单管理</a> -->
-      </el-menu-item>
 
       <el-dropdown trigger="click" class="name">
         <span class="el-dropdown-link" style="color:white;">
@@ -33,10 +32,8 @@
 </template>
 
 <script>
-// import Login from "@/views/Login.vue";
 
 export default {
-  // Login,
   data() {
     return {
       activeIndex2: "1",
@@ -44,7 +41,8 @@ export default {
   },
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
+      this.$emit("showComponent",key)
     },
     getUserInfoList(){
       this.$emit("getUserInfoList");

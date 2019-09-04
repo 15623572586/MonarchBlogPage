@@ -169,7 +169,7 @@ export default {
           .then(result=>{ 
             if(result.data.error==null){
               store.commit("setUserStatus",result.data.userInfo);
-              document.cookie ="userId="+result.data.userInfo.userId;
+              document.cookie ="userId="+Crypto.get(result.data.userInfo.userId);
               self.$router.push("/home");
             }else{
               self.open(result.data.error);

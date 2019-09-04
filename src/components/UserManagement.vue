@@ -2,7 +2,7 @@
   <div >
     <el-table  class="page-background"
       :data="userInfo"
-      style="width: 1520px;text-align:center;"
+      style="width: 1520px;"
 			size="mini"
       :default-sort="{prop: 'createDate', order: 'descending'}"
     >
@@ -15,7 +15,6 @@
       <el-table-column prop="city" label="所在城市" ></el-table-column>
       <el-table-column prop="birthDate" label="生日"></el-table-column>
 			<el-table-column label="操作">
-				<!-- <template> -->
 				<template slot-scope="scope">
           <el-button type="primary" icon="el-icon-edit" circle size="mini" @click="editUser(scope.row)"></el-button>
 					<el-button type="danger" size="mini" @click="delUser(scope.row)" round> 注销 </el-button>
