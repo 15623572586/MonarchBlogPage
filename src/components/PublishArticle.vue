@@ -43,12 +43,19 @@ export default {
       this.article.content = "";
     },
     saveContent() {
-      var articleData = {
-        userId: this.$store.state.userStatus.userId,
-        title: this.article.title,
-        content: this.article.content
-      };
-      axios("POST", "/saveArticle", articleData)
+      if(this.article.title==""){
+        this.$emit("open","您还未添加文章标题，请填写文章标题！");
+        return;
+      }else if(this.article.content == ""){
+        this.$emit("open","文章内容不能为空！")
+        return;
+      }else{
+        var articleData = {
+          userId: this.$store.state.userStatus.userId,
+          title: this.article.title,
+          content: this.article.content
+        };
+        axios("POST", "/saveArticle", articleData)
         .then(result => {
           if (result.data == "0") {
             this.$message("文章发表成功！");
@@ -59,6 +66,7 @@ export default {
         .catch(error => {
           this.$emit("open", "来自发表文章时的错误:" + error);
         });
+      }
     }
   }
 };

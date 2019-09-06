@@ -8,7 +8,8 @@
 				<el-container>
 					<el-aside width="340px"><i style="color:white">Aside</i></el-aside>
 					<el-main>
-						<article-list ref="articleList" v-show="articleListFlag"></article-list>
+						<article-list @open="open" @showContent="showContent" ref="articleList" v-show="articleListFlag"></article-list>
+						<article-content  @open="open" ref="articleContent" v-show="articleContentFlag" ></article-content>
 						<publish-article @open="open" ref="publishArticle" v-show="publishArticleFlag"></publish-article>
 						<user-management @open="open" ref="userManagement" v-show="userManagementFlag"></user-management>
 					</el-main>
@@ -24,6 +25,7 @@ import headTop from "@/components/HeadTop.vue";
 import userManagement from "@/components/UserManagement.vue";
 import publishArticle from "@/components/PublishArticle.vue"
 import articleList from "@/components/ArticleList.vue"
+import articleContent from "@/components/ArticleContent.vue"
 
 export default {
 	components:{
@@ -31,34 +33,40 @@ export default {
 		userManagement,
 		publishArticle,
 		articleList,
+		articleContent,
 	},
 	data(){
 		return{
+			articleListFlag:false,
+			articleContentFlag:false,
 			userManagementFlag:false,
 			publishArticleFlag:false,
-			articleListFlag:false,
 		}
 	},
 	methods:{
 		getUserInfoList(){
 			this.userManagementFlag = true;
-			this.publishArticleFlag = false,
-			this.articleListFlag = false,
+			this.publishArticleFlag = this.articleListFlag = this.articleContentFlag = false;
 			setTimeout(() => {
 				this.$refs.userManagement.getUserInfoList();
-			}, 10)
-			
+			}, 10);
 		},
 		showComponent(component){
 			if(component=="博客中心"){
-				this.publishArticleFlag = this.userManagementFlag = false;
+				this.publishArticleFlag = this.userManagementFlag = this.articleContentFlag = false;
 				this.articleListFlag = true;
+				this.$refs["articleList"].getArticleList();
 			}else if(component=="消息中心"){
-				this.publishArticleFlag = this.userManagementFlag = this.articleListFlag =false;
+				this.publishArticleFlag = this.userManagementFlag = this.articleContentFlag = this.articleListFlag = false;
 			}else if(component=="发表文章"){
 				this.publishArticleFlag = true;
-				this.userManagementFlag = this.articleListFlag = false;
+				this.userManagementFlag = this.articleContentFlag = this.articleListFlag = false;
 			}
+		},
+		showContent(articleInfo){
+			this.articleContentFlag = true;
+			this.publishArticleFlag = this.userManagementFlag = this.articleListFlag = false;
+			this.$refs["articleContent"].showArticleContent(articleInfo);
 		},
 		
 		//弹窗提示内容

@@ -1,0 +1,94 @@
+<template>
+  <div>
+		<div class="article-content">
+			<div class="content">
+				<div class="content-head">
+					<b class="content-title">{{title}}</b>
+					<i class="content-i">{{"作者:"+author+" 阅读:"+readCount+" 评论:"+commentCount+" "+createTime}} </i>
+				</div>
+				<div class="content-main">
+					<b class="content-text">对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白</b>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+import axios from "@/axiosConfig.js"
+export default {
+  data: function() {
+    return {
+			title:"",
+			content:"",
+			author:"",
+			createTime:"",
+			readCount:"20",
+			commentCount:"30",
+		};
+	},
+	methods:{
+		showArticleContent(articleInfo){
+			this.title = articleInfo.title;
+			this.content = articleInfo.content;
+			this.createTime = articleInfo.createTime
+			// this.readCount = articleInfo.readCount;
+			// this.commentCount = articleInfo.commentCount;
+			if(articleInfo.userId!="" && articleInfo.userId!=null){
+				var userIdData = {
+					userId : articleInfo.userId,
+				}
+				axios("GET","/getOneUserInfo",userIdData)
+				.then(result=>{
+					if(result.data.error!=null || result.data.error!=undefined){
+						this.$emit("open",result.data.error);
+					}else{
+						this.author = result.data.userName;
+					}
+				})
+				.catch(error=>{
+					this.$emit("open",error.data)
+				})
+			}
+		},
+	}
+};
+</script>
+
+<style scoped>
+.article-content {
+  background: url("../assets/05.jpg");
+  background: rgba(255, 255, 255, 0.2);
+  padding: 100px 20px 0 20px;
+  width: 1520px;
+  height: 1000px;
+  line-height: 40px;
+}
+.content{
+	height: 820px;
+	/* background: yellow; */
+}
+.content-head{
+	line-height: 50px;
+	/* background: yellowgreen; */
+}
+.content-title{
+	text-align: center;
+	font-size: 24px;
+	color: aliceblue
+}
+.content-i{
+	font-size: 6px;
+	float: right;
+	color: wheat
+}
+.content-main{
+	height: 920px;
+	text-align: left;
+	/* background: yellow; */
+}
+.content-text{
+	color: white;
+	font-size: 20px;
+}
+</style>
