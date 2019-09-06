@@ -8,6 +8,7 @@
 				<el-container>
 					<el-aside width="340px"><i style="color:white">Aside</i></el-aside>
 					<el-main>
+						<article-list ref="articleList" v-show="articleListFlag"></article-list>
 						<publish-article @open="open" ref="publishArticle" v-show="publishArticleFlag"></publish-article>
 						<user-management @open="open" ref="userManagement" v-show="userManagementFlag"></user-management>
 					</el-main>
@@ -22,32 +23,41 @@
 import headTop from "@/components/HeadTop.vue";
 import userManagement from "@/components/UserManagement.vue";
 import publishArticle from "@/components/PublishArticle.vue"
+import articleList from "@/components/ArticleList.vue"
 
 export default {
 	components:{
 		headTop,
 		userManagement,
 		publishArticle,
+		articleList,
 	},
 	data(){
 		return{
 			userManagementFlag:false,
 			publishArticleFlag:false,
+			articleListFlag:false,
 		}
 	},
 	methods:{
 		getUserInfoList(){
 			this.userManagementFlag = true;
 			this.publishArticleFlag = false,
+			this.articleListFlag = false,
 			setTimeout(() => {
 				this.$refs.userManagement.getUserInfoList();
 			}, 10)
 			
 		},
 		showComponent(component){
-			if(component=="发表文章"){
+			if(component=="博客中心"){
+				this.publishArticleFlag = this.userManagementFlag = false;
+				this.articleListFlag = true;
+			}else if(component=="消息中心"){
+				this.publishArticleFlag = this.userManagementFlag = this.articleListFlag =false;
+			}else if(component=="发表文章"){
 				this.publishArticleFlag = true;
-				this.userManagementFlag = false;
+				this.userManagementFlag = this.articleListFlag = false;
 			}
 		},
 		
@@ -77,6 +87,7 @@ export default {
   background-size: 100% 100%;
   height: 100%;
   position: fixed;
+  /* position: absolute; */
   /* width: 1920px;; */
   width: 100%;
 }

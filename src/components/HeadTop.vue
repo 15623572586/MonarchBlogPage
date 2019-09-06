@@ -11,9 +11,9 @@
       active-text-color="#ffd04b"
       style="width:100%"
     >
-      <el-menu-item index="博客中心" style="margin-left:40px;">博客中心</el-menu-item>
+      <el-menu-item index="博客中心" style="margin-left:40px;">随笔中心</el-menu-item>
       <el-menu-item index="消息中心">消息中心</el-menu-item>
-      <el-menu-item index="发表文章">发表文章</el-menu-item>
+      <el-menu-item index="发表文章">发表随笔</el-menu-item>
         <!-- <a href="# " target="_blank">订单管理</a> -->
 
       <el-dropdown trigger="click" class="name">

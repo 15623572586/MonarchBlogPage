@@ -85,7 +85,6 @@ router.beforeEach(function (to, from, next) {
       }
       axios("GET","/getOneUserInfo",userIdData)
       .then(result=>{
-        console.log("userIdData",userIdData)
         if(result.data.error==null || result.data.error==undefined){
           var userInfo = {
             userId : result.data.userId,
