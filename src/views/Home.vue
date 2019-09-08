@@ -10,7 +10,8 @@
 					<el-main>
 						<article-list @open="open" @showContent="showContent" ref="articleList" v-show="articleListFlag"></article-list>
 						<article-content  @open="open" ref="articleContent" v-show="articleContentFlag" ></article-content>
-						<publish-article @open="open" ref="publishArticle" v-show="publishArticleFlag"></publish-article>
+						<quil-editor v-show="publishArticleFlag"></quil-editor>
+						<!-- <publish-article @open="open" ref="publishArticle" v-show="publishArticleFlag"></publish-article> -->
 						<user-management @open="open" ref="userManagement" v-show="userManagementFlag"></user-management>
 					</el-main>
 				</el-container>
@@ -26,14 +27,16 @@ import userManagement from "@/components/UserManagement.vue";
 import publishArticle from "@/components/PublishArticle.vue"
 import articleList from "@/components/ArticleList.vue"
 import articleContent from "@/components/ArticleContent.vue"
+import quilEditor from "@/components/QuilEditor.vue"
 
 export default {
 	components:{
 		headTop,
 		userManagement,
-		publishArticle,
+		// publishArticle,
 		articleList,
 		articleContent,
+		quilEditor,
 	},
 	data(){
 		return{

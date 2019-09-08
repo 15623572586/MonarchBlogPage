@@ -1,8 +1,7 @@
 <template>
-  <div style>
+  <div>
     <el-row>
       <el-col :span="18">
-        <div class="grid-content bg-purple-dark"></div>
         <el-card class="box-card" style>
           <div slot="header" class="clearfix">
             <!-- <span style="float:left">文章标题</span> -->

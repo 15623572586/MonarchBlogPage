@@ -7,7 +7,11 @@
 					<i class="content-i">{{"作者:"+author+" 阅读:"+readCount+" 评论:"+commentCount+" "+createTime}} </i>
 				</div>
 				<div class="content-main">
-					<b class="content-text">对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白对此表示开场白</b>
+					<div class="ql-container ql-snow">
+						<div class="ql-editor" v-html="content" style="color:white">
+							<!-- <Xqs class="details_box" > </Xqs> -->
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
