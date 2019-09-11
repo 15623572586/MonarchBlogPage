@@ -49,10 +49,17 @@ const toolbarOptions = [
   ["link", "image", "video"] // 链接、图片、视频
 ];
 
-import { quillEditor } from "vue-quill-editor";
+import { quillEditor, Quill } from "vue-quill-editor";
+import { container, ImageExtend } from 'quill-image-extend-module'
+// import ImageResize from 'quill-image-resize-module'
+// import { ImageDrop } from 'quill-image-drop-module'
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
+ 
+Quill.register('modules/ImageExtend', ImageExtend)
+// Quill.register('modules/imageResize', ImageResize)
+// Quill.register('modules/imageDrop', ImageDrop)
 
 export default {
   props: {
@@ -75,6 +82,7 @@ export default {
     return {
       title: "",
       content: "",
+      // serverUrl: "/simBlogServer/imgUpload", // 这里写你要上传的图片服务器地址
       serverUrl: "/api/imgUpload", // 这里写你要上传的图片服务器地址
       header: { token: sessionStorage.token }, // 有的图片服务器要求请求头需要有token
       quillUpdateImg: false, // 根据图片上传状态来确定是否显示loading动画，刚开始是false,不显示
@@ -83,6 +91,26 @@ export default {
         theme: "snow", // or 'bubble'
         placeholder: "您想说点什么？",
         modules: {
+          // imageDrop: true,
+          // // 图片大小调节
+          // imageResize: {
+          //   displayStyles: {
+          //     backgroundColor: 'black',
+          //     border: 'none',
+          //     color: 'white'
+          //   },
+          //   modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+          // },
+          //拖拽上传
+          ImageExtend: {
+            loading: true,
+            name: 'img',
+            action: "/api/imgUpload",
+            response: (res) => {
+              return res.url
+            }
+          },
+          //工具栏
           toolbar: {
             container: toolbarOptions,
             // container: "#toolbar",
@@ -94,15 +122,15 @@ export default {
                 } else {
                   this.quill.format("image", false);
                 }
-              }
-              // link: function(value) {
-              //   if (value) {
-              //     var href = prompt('请输入url');
-              //     this.quill.format("link", href);
-              //   } else {
-              //     this.quill.format("link", false);
-              //   }
-              // },
+              },
+              link: function(value) {
+                if (value) {
+                  var href = prompt('请输入url');
+                  this.quill.format("link", href);
+                } else {
+                  this.quill.format("link", false);
+                }
+              },
             }
           }
         }
@@ -153,20 +181,11 @@ export default {
     },
     // 富文本图片上传前
     beforeUpload(file) {
-      console.log(file)
       // 显示loading动画
       this.quillUpdateImg = true;
-      // axios("POST","/imgUpload",file)
-      // .then(res=>{
-      //   console.log(res.data);
-      // })
-      // .catch(error=>{
-      //   console.log(error);
-      // })
     },
 
     uploadSuccess(res, file) {
-      console.log("1")
       // res为图片服务器返回的数据
       // 获取富文本组件实例
       let quill = this.$refs.myQuillEditor.quill;
@@ -189,6 +208,23 @@ export default {
       // loading动画消失
       this.quillUpdateImg = false;
       this.$message.error("图片插入失败");
+    }
+  },
+  watch:{
+    content:function(){
+      // console.log(event)
+      console.log(this.content)
+      // var items = (event.clipboardData || window.clipboardData).items;
+      // var file = null;
+      // if (items && items.length) {
+      //   for (var i = 0; i < items.length; i++) {
+      //     if (items[i].type.indexOf('image') !== -1) {
+      //       console.log(items[i]);
+      //       file = items[i].getAsFile();
+      //       break;
+      //     }
+      //   }
+      // }
     }
   }
 };

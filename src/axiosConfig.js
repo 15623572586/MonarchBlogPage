@@ -3,6 +3,7 @@ import axios from 'axios'
 const fetch = (method, url, formData) => {
   let httpDefault = {
     method: method,
+    // baseURL: 'http://49.235.111.233:8080/simBlogServer/',
     baseURL: 'http://localhost:8080/',
     url: url,
     // `params` 是即将与请求一起发送的 URL 参数
