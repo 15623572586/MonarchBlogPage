@@ -31,6 +31,19 @@
 </template>
 <script>
 import axios from "@/axiosConfig.js";
+
+import Quill from 'quill'
+import { quillEditor} from "vue-quill-editor";
+import {ImageExtend } from 'quill-image-extend-module'
+import ImageResize from 'quill-image-resize-module'
+import { ImageDrop } from 'quill-image-drop-module'
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
+import "quill/dist/quill.bubble.css";
+
+Quill.register('modules/ImageExtend', ImageExtend)
+Quill.register('modules/imageResize', ImageResize)
+Quill.register('modules/imageDrop', ImageDrop)
 // 工具栏配置
 const toolbarOptions = [
   ["bold", "italic", "underline", "strike"], // 加粗 斜体 下划线 删除线
@@ -48,18 +61,7 @@ const toolbarOptions = [
   ["clean"], // 清除文本格式
   ["link", "image", "video"] // 链接、图片、视频
 ];
-
-import { quillEditor, Quill } from "vue-quill-editor";
-import { container, ImageExtend } from 'quill-image-extend-module'
-// import ImageResize from 'quill-image-resize-module'
-// import { ImageDrop } from 'quill-image-drop-module'
-import "quill/dist/quill.core.css";
-import "quill/dist/quill.snow.css";
-import "quill/dist/quill.bubble.css";
  
-Quill.register('modules/ImageExtend', ImageExtend)
-// Quill.register('modules/imageResize', ImageResize)
-// Quill.register('modules/imageDrop', ImageDrop)
 
 export default {
   props: {
@@ -91,16 +93,16 @@ export default {
         theme: "snow", // or 'bubble'
         placeholder: "您想说点什么？",
         modules: {
-          // imageDrop: true,
-          // // 图片大小调节
-          // imageResize: {
-          //   displayStyles: {
-          //     backgroundColor: 'black',
-          //     border: 'none',
-          //     color: 'white'
-          //   },
-          //   modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
-          // },
+          imageDrop: true,
+          // 图片大小调节
+          imageResize: {
+            // displayStyles: {
+            //   backgroundColor: 'black',
+            //   border: 'none',
+            //   color: 'white'
+            // },
+            // modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+          },
           //拖拽上传
           ImageExtend: {
             loading: true,
@@ -211,21 +213,6 @@ export default {
     }
   },
   watch:{
-    content:function(){
-      // console.log(event)
-      console.log(this.content)
-      // var items = (event.clipboardData || window.clipboardData).items;
-      // var file = null;
-      // if (items && items.length) {
-      //   for (var i = 0; i < items.length; i++) {
-      //     if (items[i].type.indexOf('image') !== -1) {
-      //       console.log(items[i]);
-      //       file = items[i].getAsFile();
-      //       break;
-      //     }
-      //   }
-      // }
-    }
   }
 };
 </script> 
