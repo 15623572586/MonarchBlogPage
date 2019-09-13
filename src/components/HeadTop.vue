@@ -3,6 +3,7 @@
       <!-- :default-active="activeIndex2" 
       width="1920"-->
     <el-menu
+      :default-active="activeIndex2" 
       class="el-menu-demo"
       mode="horizontal"
       @select="handleSelect"
@@ -36,11 +37,11 @@
 export default {
   data() {
     return {
-      activeIndex2: "1",
+      activeIndex2: "博客中心",
     };
   },
   methods: {
-    handleSelect(key, keyPath) {
+    handleSelect(key) {
       // console.log(key, keyPath);
       this.$emit("showComponent",key)
     },
@@ -50,6 +51,9 @@ export default {
     logOut(){
       document.cookie = 'userId' + '=;  expires=Thu, 01 Jan 1970 00:00:01 GMT;'
       this.$router.push("/")
+    },
+    setIndex(){
+      this.activeIndex2="";
     }
   }
 };

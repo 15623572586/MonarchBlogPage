@@ -91,7 +91,7 @@ export default {
       editorOption: {
         placeholder: "",
         theme: "snow", // or 'bubble'
-        placeholder: "您想说点什么？",
+        // placeholder: "您想说点什么？",
         modules: {
           imageDrop: true,
           // 图片大小调节
@@ -182,12 +182,12 @@ export default {
       this.$emit("input", this.content);
     },
     // 富文本图片上传前
-    beforeUpload(file) {
+    beforeUpload() {
       // 显示loading动画
       this.quillUpdateImg = true;
     },
 
-    uploadSuccess(res, file) {
+    uploadSuccess(res) {
       // res为图片服务器返回的数据
       // 获取富文本组件实例
       let quill = this.$refs.myQuillEditor.quill;
@@ -222,7 +222,7 @@ export default {
   background: url("../assets/05.jpg");
   background: rgba(255, 255, 255, 0.2);
   /* padding: 100px 20px 0 20px; */
-  width: 1520px;
+  width: 1560px;
   height: 1100px;
 }
 .content {

@@ -3,15 +3,18 @@
 		<el-row type="flex" class="row-bg" justify="center" style="margin-left:200px;">
 			<el-col :span="24"><div class="grid-content"></div>
 				<el-header>
-					<head-top class="home" @getUserInfoList="getUserInfoList" @showComponent="showComponent"></head-top>
+					<head-top ref="head" @getUserInfoList="getUserInfoList" @showComponent="showComponent" class="home" ></head-top>
 				</el-header>
 				<el-container>
-					<el-aside width="340px"><i style="color:white">Aside</i></el-aside>
+					<el-aside width="350px">
+						<!-- <i style="color:white">Aside</i> -->
+						<calendar></calendar>
+						<left-grid-personal-info></left-grid-personal-info>
+					</el-aside>
 					<el-main>
 						<article-list @open="open" @showContent="showContent" ref="articleList" v-show="articleListFlag"></article-list>
 						<article-content  @open="open" ref="articleContent" v-show="articleContentFlag" ></article-content>
 						<quil-editor v-show="publishArticleFlag"></quil-editor>
-						<!-- <publish-article @open="open" ref="publishArticle" v-show="publishArticleFlag"></publish-article> -->
 						<user-management @open="open" ref="userManagement" v-show="userManagementFlag"></user-management>
 					</el-main>
 				</el-container>
@@ -24,19 +27,21 @@
 <script>
 import headTop from "@/components/HeadTop.vue";
 import userManagement from "@/components/UserManagement.vue";
-import publishArticle from "@/components/PublishArticle.vue"
 import articleList from "@/components/ArticleList.vue"
 import articleContent from "@/components/ArticleContent.vue"
 import quilEditor from "@/components/QuilEditor.vue"
+import calendar from "@/components/Calendar.vue"
+import leftGridPersonalInfo from "@/components/LeftGridPersonalInfo.vue"
 
 export default {
 	components:{
 		headTop,
 		userManagement,
-		// publishArticle,
 		articleList,
 		articleContent,
 		quilEditor,
+		calendar,
+		leftGridPersonalInfo
 	},
 	data(){
 		return{
@@ -50,6 +55,7 @@ export default {
 		getUserInfoList(){
 			this.userManagementFlag = true;
 			this.publishArticleFlag = this.articleListFlag = this.articleContentFlag = false;
+			this.$refs["head"].setIndex();
 			setTimeout(() => {
 				this.$refs.userManagement.getUserInfoList();
 			}, 10);

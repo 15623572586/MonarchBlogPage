@@ -1,23 +1,25 @@
 <template>
-  <div >
-    <el-table  class="page-background"
+  <div>
+    <el-table
+      :header-cell-style="{background:'#eef1f6',color:'#606266'}"
+      class="page-background"
       :data="userInfo"
-      style="width: 1520px;"
+      style="width: 1560px;"
 			size="mini"
       :default-sort="{prop: 'createDate', order: 'descending'}"
     >
-      <el-table-column prop="userId" label="用户名" width="140" style="text-align:center;width:120px;"></el-table-column>
-      <el-table-column prop="userName" label="昵称" ></el-table-column>
-      <el-table-column prop="realName" label="姓名" ></el-table-column>
-      <el-table-column prop="sex" label="性别" ></el-table-column>
+      <el-table-column prop="userId" label="用户名" width="150" class="table" style="background:red"></el-table-column>
+      <el-table-column prop="userName" label="昵称"></el-table-column>
+      <el-table-column prop="realName" label="姓名"></el-table-column>
+      <el-table-column prop="sex" label="性别"></el-table-column>
       <el-table-column prop="createDate" sortable label="注册日期" ></el-table-column>
-      <el-table-column prop="telNum" label="联系方式" ></el-table-column>
-      <el-table-column prop="city" label="所在城市" ></el-table-column>
+      <el-table-column prop="telNum" label="联系方式"></el-table-column>
+      <el-table-column prop="city" label="所在城市"></el-table-column>
       <el-table-column prop="birthDate" label="生日"></el-table-column>
 			<el-table-column label="操作">
 				<template slot-scope="scope">
           <el-button type="primary" icon="el-icon-edit" circle size="mini" @click="editUser(scope.row)"></el-button>
-					<el-button type="danger" size="mini" @click="delUser(scope.row)" round> 注销 </el-button>
+					<el-button type="danger" size="mini" @click="delUser(scope.row)" round>注销</el-button>
 				</template>
 			</el-table-column>
     </el-table>
@@ -260,18 +262,22 @@ export default {
 </script>
 
 <style scoped>
-
-  .page-background {
-    background: url("../assets/03.jpg");
-    background-size: 100% 100%;
-    position: fixed;
-    width: 100%;
+  .el-table {
+    background: rgba(255, 255, 255, 0.5);
   }
-  .form{
+  .page-background {
+    /* background: url("../assets/03.jpg"); */
+    background: red;
+    background: rgba(255, 255, 255, 0.5);
+    /* background-size: 100% 100%;
+    position: fixed;
+    width: 100%; */
+  }
+  .form {
     width: 1200px;
     margin-left: 350px; 
   }
-  .input{
+  .input {
     width:240px;
     float: left;
   }

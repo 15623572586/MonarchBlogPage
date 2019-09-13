@@ -75,7 +75,7 @@ export default {
   background: url("../assets/05.jpg");
   background: rgba(255, 255, 255, 0.2);
   padding: 100px 20px 0 20px;
-  width: 1520px;
+  width: 1560px;
   height: 1000px;
   line-height: 40px;
 }
