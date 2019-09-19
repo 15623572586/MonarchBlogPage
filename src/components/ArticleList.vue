@@ -65,7 +65,8 @@ export default {
 		},
 		showContent(articleInfo){
 			this.$emit("showContent",articleInfo);
-		}
+			this.$emit("getleftGridPersonalInfo",articleInfo.userId);
+		},
 	}
 };
 </script>
@@ -75,12 +76,13 @@ export default {
   background: url("../assets/05.jpg");
   background: rgba(255, 255, 255, 0.2);
   padding: 100px 20px 0 20px;
-  width: 1560px;
+  width: 1520px;
   height: 1000px;
   line-height: 40px;
 }
 .list{
 	height: 820px;
+	width: 1500px;
 	/* background: yellow; */
 }
 .link {
@@ -91,6 +93,7 @@ export default {
 .link-i {
   color: white;
   font-size: 20px;
+  width: 1200px;
   float: left;
 }
 .date-label {
