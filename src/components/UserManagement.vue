@@ -1,10 +1,11 @@
 <template>
   <div>
     <el-table
-      :header-cell-style="{background:'#eef1f6',color:'#606266'}"
+      :header-cell-style="tableHeaderColor"
       class="page-background"
       :data="userInfo"
       style="width: 1560px;"
+      :row-style="tableRowStyle"
 			size="mini"
       :default-sort="{prop: 'createDate', order: 'descending'}"
     >
@@ -92,20 +93,20 @@
           </el-form-item>
           <el-form-item label="您所在的城市" :label-width="formLabelWidth">
             <el-select
-              v-model="editForm.userAdrProv"
+              v-model="editForm.userAdrProv.Id"
               size="small"
               style="width:120px;float:left;"
-              @change="getCities(editForm.userAdrProv)"
+              @change="getCities(editForm.userAdrProv.Id)"
             >
               <el-option v-for="(item,index) in Provinces" :key="index" :label="item.provinceName" :value="item.provinceId"></el-option>
             </el-select>
             <el-select
-              v-model="editForm.userAdrCity"
+              v-model="editForm.userAdrCity.Name"
               size="small"
               :disabled="citiesSeletDis"
               style="width:120px;float:left;"
             >
-              <el-option v-for="(item,index) in Cities" :key="index" :label="item.cityName" :value="item.cityId"></el-option>
+              <el-option v-for="(item,index) in Cities" :key="index" :label="item.cityName" :value="item.cityName"></el-option>
             </el-select>
           </el-form-item>
         </el-form>
@@ -135,8 +136,14 @@ export default {
         realName: "",
         userSex: "",
         userBirthDate: "",
-        userAdrProv: "",
-        userAdrCity: ""
+        userAdrProv: {
+          Id:"",
+          Name:""
+        },
+        userAdrCity: {
+          Id:"",
+          Name:""
+        }
       },
       Provinces: [],
       Cities: [],
@@ -187,11 +194,13 @@ export default {
       });
       this.dialogFormVisible = true;
     },
-    
     getCities(provinceId){
+        this.editForm.userAdrCity={
+          Id:"",
+          Name:""
+        };
       if(this.notCityIds.indexOf(provinceId)==-1){
         this.Cities = [];
-        this.editForm.userAdrCity = "";
         this.citiesSeletDis = false;
         var provinceIdData = {
           provinceId: provinceId,
@@ -257,21 +266,26 @@ export default {
           });          
         });
     },
+    tableRowStyle({ row, rowIndex }) {
+      return 'background: rgba(255, 255, 255, 0.1)'
+    },
+    tableHeaderColor({row, column, rowIndex, columnIndex}) {
+      if (rowIndex === 0) {
+        return 'background:lightblue;'
+      }
+    },
   }
 }
 </script>
 
 <style scoped>
-  .el-table {
-    background: rgba(255, 255, 255, 0.5);
+  .page-background .el-table{
+    background: rgba(255, 255, 255, 0.1);
+    color: aqua;
   }
-  .page-background {
-    /* background: url("../assets/03.jpg"); */
-    background: red;
-    background: rgba(255, 255, 255, 0.5);
-    /* background-size: 100% 100%;
-    position: fixed;
-    width: 100%; */
+  .page-background .el-table__header{
+    /* background: rgba(255, 255, 255, 0.1); */
+    color: aqua;
   }
   .form {
     width: 1200px;

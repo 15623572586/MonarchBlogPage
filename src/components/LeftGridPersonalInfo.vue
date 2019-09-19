@@ -54,7 +54,6 @@ export default {
 				}else{
 					this.$emit("open",res.data.error);
 				}
-				console.log(this.personalInfo);
 			})
 			.catch(error=>{
 				this.$emit("open","获取笔者信息和文章列表时出错！");

@@ -6,6 +6,7 @@
         <el-header>
           <head-top
             ref="head"
+            @open="open"
             @getUserInfoList="getUserInfoList"
             @showComponent="showComponent"
             class="home"
@@ -60,7 +61,7 @@ export default {
     quilEditor,
     calendar,
     leftGridPersonalInfo,
-    leftGrid
+    leftGrid,
   },
   data() {
     return {
@@ -71,10 +72,13 @@ export default {
       leftGridPersonalInfoFlag: false
     };
   },
+  mounted:function() {
+    this.showComponent("博客中心");
+  },
   methods: {
     getUserInfoList() {
+      this.flagToFalse();
       this.userManagementFlag = true;
-      this.publishArticleFlag = this.articleListFlag = this.articleContentFlag = this.leftGridPersonalInfoFlag = false;
       this.$refs["head"].setIndex();
       setTimeout(() => {
         this.$refs.userManagement.getUserInfoList();
@@ -82,25 +86,31 @@ export default {
     },
     showComponent(component) {
       if (component == "博客中心") {
-        this.publishArticleFlag = this.userManagementFlag = this.leftGridPersonalInfoFlag = this.articleContentFlag = false;
+        this.flagToFalse();
         this.articleListFlag = true;
         this.$refs["articleList"].getArticleList();
       } else if (component == "消息中心") {
-        this.publishArticleFlag = this.userManagementFlag = this.leftGridPersonalInfoFlag = this.articleContentFlag = this.articleListFlag = false;
+        this.flagToFalse();
       } else if (component == "发表文章") {
+        this.flagToFalse();
         this.publishArticleFlag = true;
-        this.userManagementFlag = this.articleContentFlag = this.leftGridPersonalInfoFlag = this.articleListFlag = false;
       }
     },
     showContent(articleInfo) {
+      this.flagToFalse();
       this.articleContentFlag = this.leftGridPersonalInfoFlag = true;
-      this.publishArticleFlag = this.userManagementFlag = this.articleListFlag = false;
       this.$refs["articleContent"].showArticleContent(articleInfo);
     },
     getleftGridPersonalInfo(userId) {
       this.$refs["leftGridPersonalInfo"].getPersonalInfo(userId);
     },
-
+    flagToFalse(){
+      this.articleListFlag = false;
+      this.articleContentFlag = false;
+      this.userManagementFlag = false;
+      this.publishArticleFlag =false;
+      this.leftGridPersonalInfoFlag = false;
+    },
     //弹窗提示内容
     open(msg) {
       this.$alert(msg, "提示", {
@@ -111,7 +121,6 @@ export default {
       });
     }
   },
-  created: function() {}
 };
 </script>
 

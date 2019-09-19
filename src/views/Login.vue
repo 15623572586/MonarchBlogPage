@@ -90,20 +90,20 @@
           </el-form-item>
           <el-form-item label="您所在的城市" :label-width="formLabelWidth">
             <el-select
-              v-model="sinupForm.userAdrProv"
+              v-model="sinupForm.userAdrProv.Id"
               size="small"
               style="width:120px;float:left;"
-              @change="getCities(sinupForm.userAdrProv)"
+              @change="getCities(sinupForm.userAdrProv.Id)"
             >
               <el-option v-for="(item,index) in Provinces" :key="index" :label="item.provinceName" :value="item.provinceId"></el-option>
             </el-select>
             <el-select
-              v-model="sinupForm.userAdrCity"
+              v-model="sinupForm.userAdrCity.Name"
               size="small"
               :disabled="citiesSeletDis"
               style="width:120px;float:left;"
             >
-              <el-option v-for="(item,index) in Cities" :key="index" :label="item.cityName" :value="item.cityId"></el-option>
+              <el-option v-for="(item,index) in Cities" :key="index" :label="item.cityName" :value="item.cityName"></el-option>
             </el-select>
           </el-form-item>
         </el-form>
@@ -146,8 +146,14 @@ export default {
         realName: "",
         userSex: "",
         userBirthDate: "",
-        userAdrProv: "",
-        userAdrCity: ""
+        userAdrProv: {
+          Id:"",
+          Name:""
+        },
+        userAdrCity: {
+          Id:"",
+          Name:""
+        }
       },
       Provinces: [],
       Cities: [],
@@ -200,7 +206,10 @@ export default {
     getCities(provinceId){
       if(this.notCityIds.indexOf(provinceId)==-1){
         this.Cities = [];
-        this.sinupForm.userAdrCity = "";
+        this.sinupForm.userAdrCity = {
+          Id:"",
+          Name:""
+        };
         this.citiesSeletDis = false;
         var provinceIdData = {
           provinceId: provinceId,
