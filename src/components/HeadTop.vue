@@ -24,14 +24,14 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item class="clearfix" @click.native="getLoginUserInfo()">修改信息</el-dropdown-item>
-          <el-dropdown-item class="clearfix">我的随笔</el-dropdown-item>
+          <el-dropdown-item class="clearfix" @click.native="getPersonalArticleList()">我的随笔</el-dropdown-item>
           <el-dropdown-item class="clearfix" @click.native="getUserInfoList()">用户管理</el-dropdown-item>
           <el-dropdown-item class="clearfix" @click.native="logOut()">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </el-menu>
 
-    <el-dialog title="修改信息" :visible.sync="dialogFormVisible" class="form">
+    <el-dialog title="修改信息" append-to-body :visible.sync="dialogFormVisible" class="form">
         <el-form :model="personalInfo" class="sinup-background">
           <el-form-item label="用户名" :label-width="formLabelWidth">
             <el-input
@@ -125,7 +125,6 @@
 <script>
 import axios from '@/axiosConfig.js'
 import Crypto from '@/crypto.js'
-import store from '@/store.js'
 
 export default {
   data() {
@@ -263,6 +262,9 @@ export default {
       }).catch(error=>{
         self.$alert(error, "提示", {confirmButtonText: "确定"})
       });
+    },
+    getPersonalArticleList(){
+      this.$emit("getPersonalArticleList");
     },
     open(msg) {
       this.$alert(msg, "提示", {

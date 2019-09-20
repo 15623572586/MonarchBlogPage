@@ -25,7 +25,7 @@
 			</el-table-column>
     </el-table>
     <div>
-      <el-dialog title="修改用户信息" :visible.sync="dialogFormVisible" class="form">
+      <el-dialog title="修改用户信息" append-to-body :visible.sync="dialogFormVisible" class="form">
         <el-form :model="editForm" class="sinup-background">
           <el-form-item label="用户名" :label-width="formLabelWidth">
             <el-input

@@ -8,6 +8,7 @@
             ref="head"
             @open="open"
             @getUserInfoList="getUserInfoList"
+            @getPersonalArticleList="getPersonalArticleList"
             @showComponent="showComponent"
             class="home"
           ></head-top>
@@ -76,6 +77,11 @@ export default {
     this.showComponent("博客中心");
   },
   methods: {
+    getPersonalArticleList(){
+      this.flagToFalse();
+      this.articleListFlag = true;
+      this.$refs["articleList"].getPersonalArticleList();
+    },
     getUserInfoList() {
       this.flagToFalse();
       this.userManagementFlag = true;

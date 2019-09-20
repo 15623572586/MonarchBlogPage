@@ -84,8 +84,8 @@ export default {
     return {
       title: "",
       content: "",
-      // serverUrl: "/simBlogServer/imgUpload", // 这里写你要上传的图片服务器地址
-      serverUrl: "/api/imgUpload", // 这里写你要上传的图片服务器地址
+      serverUrl: "/simBlogServer/imgUpload", // 这里写你要上传的图片服务器地址
+      // serverUrl: "/api/imgUpload", // 这里写你要上传的图片服务器地址
       header: { token: sessionStorage.token }, // 有的图片服务器要求请求头需要有token
       quillUpdateImg: false, // 根据图片上传状态来确定是否显示loading动画，刚开始是false,不显示
       editorOption: {

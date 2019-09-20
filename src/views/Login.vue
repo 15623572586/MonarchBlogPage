@@ -24,7 +24,7 @@
     </div>
 
     <div >
-      <el-dialog title="用户注册" :visible.sync="dialogFormVisible" class="form">
+      <el-dialog title="用户注册" append-to-body :visible.sync="dialogFormVisible" class="form">
         <el-form :model="sinupForm" class="sinup-background">
           <el-form-item label="用户名" :label-width="formLabelWidth">
             <el-input

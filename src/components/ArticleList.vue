@@ -63,6 +63,21 @@ export default {
 				this.$emit("open",error.data);
 			})
 		},
+		getPersonalArticleList(){
+			var userId = this.$store.state.userStatus.userId;
+			axios("GET","/getArticleList",{userId:userId})
+			.then(result=>{
+				if(result.data.error!=null || result.data.error!=undefined){
+					this.$emit("open",result.data.error)
+				}else{
+					this.articleList = result.data.articleList;
+					this.total = result.data.total;	
+				}
+			})
+			.catch(error=>{
+				this.$emit("open",error.data);
+			})
+		},
 		showContent(articleInfo){
 			this.$emit("showContent",articleInfo);
 			this.$emit("getleftGridPersonalInfo",articleInfo.userId);

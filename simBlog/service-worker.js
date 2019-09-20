@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/simBlog/precache-manifest.3d15bd0acc632d1304f53a7859b85f9f.js"
+  "/simBlog/precache-manifest.304b74492738ed65002f279e49a478ba.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "monarchweb"});
