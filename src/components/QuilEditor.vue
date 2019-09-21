@@ -163,6 +163,7 @@ export default {
           axios("POST", "/saveArticle", articleData).then(result => {
             if (result.data == "0") {
               this.$message({ type: "success", message: "文章发表成功！" });
+              this.$emit("showComponent","博客中心");
             } else if (result.data == "1") {
               this.$message({ type: "info", message: "文章发表失败！" });
             }

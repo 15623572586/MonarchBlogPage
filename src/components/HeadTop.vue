@@ -16,7 +16,7 @@
       <!-- <el-menu-item index="消息中心">消息中心</el-menu-item> -->
       <!-- <el-menu-item index="发表文章">发表随笔</el-menu-item> -->
         <!-- <a href="# " target="_blank">订单管理</a> -->
-
+        <i class="copy-right">Copyright© 2019 YunHu Yu AllRightsReserved.</i>
       <el-dropdown trigger="click" class="name">
         <span class="el-dropdown-link" style="color:white;">
           <i v-if="$store.state.userStatus.userName!=''">您好，{{$store.state.userStatus.userName}}</i>
@@ -287,8 +287,17 @@ export default {
 </script>
 
 <style scoped>
+.copy-right{
+  display: block;
+  color:black;
+  font-size: 1px;
+  width: 400px;
+  height: 0px;
+  text-align: center;
+  padding: 20px 400px 0 850px;
+}
 .name {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   float: right;
   margin-right: 100px;
   cursor: pointer;

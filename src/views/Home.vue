@@ -34,7 +34,7 @@
               v-show="articleListFlag"
             ></article-list>
             <article-content @open="open" ref="articleContent" v-show="articleContentFlag"></article-content>
-            <quil-editor v-show="publishArticleFlag"></quil-editor>
+            <quil-editor v-show="publishArticleFlag" @showComponent="showComponent"></quil-editor>
             <user-management @open="open" ref="userManagement" v-show="userManagementFlag"></user-management>
           </el-main>
         </el-container>
