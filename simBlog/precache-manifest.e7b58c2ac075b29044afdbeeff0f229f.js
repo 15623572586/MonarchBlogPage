@@ -8,11 +8,11 @@ self.__precacheManifest = [
     "url": "/simBlog/js/chunk-vendors.ef19cbf8.js"
   },
   {
-    "revision": "a7eab49c2cefe8d055b3",
-    "url": "/simBlog/js/app.186af917.js"
+    "revision": "2eedc3bb497f22814ebf",
+    "url": "/simBlog/js/app.7645c3bb.js"
   },
   {
-    "revision": "71ef115a368bab8612737d34ab8ee095",
+    "revision": "f0374d0276cadaaab93007b2639ac394",
     "url": "/simBlog/index.html"
   },
   {
@@ -36,7 +36,7 @@ self.__precacheManifest = [
     "url": "/simBlog/css/chunk-vendors.31ff044b.css"
   },
   {
-    "revision": "a7eab49c2cefe8d055b3",
-    "url": "/simBlog/css/app.6d6b5886.css"
+    "revision": "2eedc3bb497f22814ebf",
+    "url": "/simBlog/css/app.5a1670f8.css"
   }
 ];

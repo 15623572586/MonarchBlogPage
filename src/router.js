@@ -15,7 +15,8 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/login'
+      redirect: '/home',
+      component: Home
     },
     {
       path: '/login',
@@ -58,7 +59,8 @@ router.beforeEach(function (to, from, next) {
     }
   }
   if(hasLogin){ //当前浏览器已经登录
-    if(to.path=="/login" || to.path=="/"){
+    if(to.path=="/login"){
+      alert("您已登录，请不要重复登录！")
       next("/home")
       // var userIdData = {
       //   userId: userId,
@@ -96,16 +98,17 @@ router.beforeEach(function (to, from, next) {
         }
       })
       .catch(error=>{
-        alert("来自router.js的错误："+error);
+        alert("来自router.js的错误："+error+"请重新登录");
         next("/login")
       })
     }
   }else{  //没有登录，返回登录页面
-    if(to.path=="/login"){
-      next();
-    }else if(to.path=="/home"){
-      next("/login")
-    }
+    next();
+    // if(to.path=="/login"){
+    //   next();
+    // }else if(to.path=="/home"){
+    //   next("/login")
+    // }
   }
 })
 

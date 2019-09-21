@@ -13,20 +13,25 @@
       style="width:100%"
     >
       <el-menu-item index="博客中心" style="margin-left:40px;">随笔中心</el-menu-item>
-      <el-menu-item index="消息中心">消息中心</el-menu-item>
-      <el-menu-item index="发表文章">发表随笔</el-menu-item>
+      <!-- <el-menu-item index="消息中心">消息中心</el-menu-item> -->
+      <!-- <el-menu-item index="发表文章">发表随笔</el-menu-item> -->
         <!-- <a href="# " target="_blank">订单管理</a> -->
 
       <el-dropdown trigger="click" class="name">
         <span class="el-dropdown-link" style="color:white;">
-          <i>您好，{{$store.state.userStatus.userName}}</i>
+          <i v-if="$store.state.userStatus.userName!=''">您好，{{$store.state.userStatus.userName}}</i>
+          <i v-else>您好，请先登录</i>
           <i class="el-icon-caret-bottom el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item v-if="$store.state.userStatus.userName==''" class="clearfix" @click.native="login()">我要登录</el-dropdown-item>
+          <div v-if="$store.state.userStatus.userName!=''">
           <el-dropdown-item class="clearfix" @click.native="getLoginUserInfo()">修改信息</el-dropdown-item>
           <el-dropdown-item class="clearfix" @click.native="getPersonalArticleList()">我的随笔</el-dropdown-item>
+          <el-dropdown-item class="clearfix" @click.native="handleSelect('发表文章')">新建随笔</el-dropdown-item>
           <el-dropdown-item class="clearfix" @click.native="getUserInfoList()">用户管理</el-dropdown-item>
           <el-dropdown-item class="clearfix" @click.native="logOut()">退出登录</el-dropdown-item>
+          </div>
         </el-dropdown-menu>
       </el-dropdown>
     </el-menu>
@@ -160,6 +165,9 @@ export default {
       // console.log(key, keyPath);
       this.$emit("showComponent",key)
     },
+    login(){
+      this.$router.push("/login");
+    },
     getPersonalInfo(){
       this.$emit("getPersonalInfo");
     },
@@ -168,7 +176,7 @@ export default {
     },
     logOut(){
       document.cookie = 'userId' + '=;  expires=Thu, 01 Jan 1970 00:00:01 GMT;'
-      this.$router.push("/")
+      this.$router.push("/login");
     },
     setIndex(){
       this.activeIndex2="";
@@ -253,9 +261,8 @@ export default {
       var self = this;
       axios("POST", "/sinup", formatData).then(result => {
         if (result.data=="0") {
-          self.open("信息修改成功");
           self.dialogFormVisible = false;
-          self.$router.push("/");
+          self.open("信息修改成功（由于个浏览器兼容性不一致，如果您的信息显示异常，请刷新重新加载页面！）");
         }else{
           self.open(result.data);
         }
