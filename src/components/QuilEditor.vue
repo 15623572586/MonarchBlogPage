@@ -142,34 +142,45 @@ export default {
 
   methods: {
     saveContent() {
+      //判断文章内容是否为空或全为空格
+      var content = this.content.replace("<p>","").replace("</p>","");
+      if(this.content==null || content==""||content.split(" ").join("").length==0){
+        this.$message({
+          type: "info",
+          message: "文章内容不可空"
+        });
+        return;
+      }
       this.$prompt("请输入文章标题", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消"
-      })
-        .then(({ value }) => {
+      }).then(({ value }) => {if(value!=""&&value!=null&&value.split(" ").join("").length!=0){
           var articleData = {
             userId: this.$store.state.userStatus.userId,
             title: value,
             content: this.content
           };
-          axios("POST", "/saveArticle", articleData)
-            .then(result => {
-              if (result.data == "0") {
-                this.$message({ type: "success", message: "文章发表成功！" });
-              } else if (result.data == "1") {
-                this.$message({ type: "info", message: "文章发表失败！" });
-              }
-            })
-            .catch(error => {
-              this.$emit("open", "来自发表文章时的错误:" + error);
-            });
-        })
-        .catch(() => {
+          axios("POST", "/saveArticle", articleData).then(result => {
+            if (result.data == "0") {
+              this.$message({ type: "success", message: "文章发表成功！" });
+            } else if (result.data == "1") {
+              this.$message({ type: "info", message: "文章发表失败！" });
+            }
+          }).catch(error => {
+            this.$emit("open", "来自发表文章时的错误:" + error);
+          });
+        }else{
           this.$message({
             type: "info",
-            message: "取消输入"
+            message: "请输入文章标题"
           });
+        }
+      }).catch(() => {
+        this.$message({
+          type: "info",
+          message: "取消输入"
         });
+      });
     },
     onEditorBlur() {
       //失去焦点事件

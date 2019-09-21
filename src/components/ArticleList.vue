@@ -1,37 +1,32 @@
 <template>
   <div>
     <div class="article-list">
-			<div class="list">
-				<!-- <div v-for="index in 20 " :key="index">
-					<div class="link">
-						<el-link>
-							<li class="link-i">item.title</li>
-						</el-link>
-					</div>
-				</div> -->
-				<div v-for="(item,index) in articleList" :key="index">
-					<div class="link">
-						<el-link @click="showContent(item)">
-							<li class="link-i">{{item.title}}</li>
-						</el-link>
-					</div>
-					<div class="date-label">
-						<i class="date-show">{{item.createTime}}</i>
-					</div>
-					<div class="read-log">
-						<i class="read-show">阅读:{{"20 "}}评论:{{"30"}}</i>
-					</div>
-				</div>
-			</div>
-      
+      <div class="list">
+        <div v-for="(item,index) in articleList" :key="index">
+          <div class="link">
+            <el-link @click="showContent(item)">
+              <li class="link-i">{{item.title}}</li>
+            </el-link>
+          </div>
+          <div class="date-label">
+            <i class="date-show">{{item.createTime}}</i>
+          </div>
+          <div class="read-log">
+            <i class="read-show">阅读:{{"20 "}}评论:{{"30"}}</i>
+          </div>
+        </div>
+      </div>
+
       <div class="page">
         <label style="color:white;float:left;">共 {{total}} 条</label>
         <el-pagination
           style="float:left;"
           background
           layout="prev, pager, next"
-          :page-size="20"
+					:current-page.sync="currentPage"
+          :page-size="pageSize"
           :total="total"
+					@current-change="currentPageChange()"
         ></el-pagination>
       </div>
     </div>
@@ -39,50 +34,65 @@
 </template>
 
 <script>
-import axios from "@/axiosConfig.js"
+import axios from "@/axiosConfig.js";
 export default {
   data: function() {
     return {
 			articleList: [],
-			total: 0,
-
-		};
+			totalArticleList:[],
+			currentPage:1,
+			pageSize:20,
+      total: 0
+    };
   },
   methods: {
-		getArticleList(){
-			axios("GET","/getArticleList",null)
-			.then(result=>{
-				if(result.data.error!=null || result.data.error!=undefined){
-					this.$emit("open",result.data.error)
-				}else{
-					this.articleList = result.data.articleList;
-					this.total = result.data.total;	
-				}
-			})
-			.catch(error=>{
-				this.$emit("open",error.data);
-			})
+		currentPageChange(){
+			this.displayList();
 		},
-		getPersonalArticleList(){
-			var userId = this.$store.state.userStatus.userId;
-			axios("GET","/getArticleList",{userId:userId})
-			.then(result=>{
-				if(result.data.error!=null || result.data.error!=undefined){
-					this.$emit("open",result.data.error)
-				}else{
-					this.articleList = result.data.articleList;
-					this.total = result.data.total;	
-				}
-			})
-			.catch(error=>{
-				this.$emit("open",error.data);
-			})
+		displayList(){
+			this.articleList = [];
+			var start = (this.currentPage-1)*this.pageSize;
+			var end = start+this.pageSize;
+			for (let index = start; index < end && this.totalArticleList[index]!=null; index++) {
+				this.articleList.push(this.totalArticleList[index]);
+			}
 		},
-		showContent(articleInfo){
-			this.$emit("showContent",articleInfo);
-			this.$emit("getleftGridPersonalInfo",articleInfo.userId);
+    getArticleList() {
+      axios("GET", "/getArticleList", null)
+        .then(result => {
+          if (result.data.error != null || result.data.error != undefined) {
+            this.$emit("open", result.data.error);
+          } else {
+            // this.articleList = result.data.articleList;
+            this.totalArticleList = result.data.articleList;
+						this.total = result.data.total;
+						this.displayList();
+          }
+        })
+        .catch(error => {
+          this.$emit("open", error.data);
+        });
 		},
-	}
+    getPersonalArticleList() {
+      var userId = this.$store.state.userStatus.userId;
+      axios("GET", "/getArticleList", { userId: userId })
+        .then(result => {
+          if (result.data.error != null || result.data.error != undefined) {
+            this.$emit("open", result.data.error);
+          } else {
+            this.articleList = result.data.articleList;
+            this.total = result.data.total;
+          }
+        })
+        .catch(error => {
+          this.$emit("open", error.data);
+        });
+    },
+    showContent(articleInfo) {
+      this.$emit("showContent", articleInfo);
+      this.$emit("getleftGridPersonalInfo", articleInfo.userId);
+    }
+  }
 };
 </script>
 
@@ -95,10 +105,10 @@ export default {
   height: 1000px;
   line-height: 40px;
 }
-.list{
-	height: 820px;
-	width: 1500px;
-	/* background: yellow; */
+.list {
+  height: 820px;
+  width: 1500px;
+	/* background-color: darkgrey */
 }
 .link {
   width: 1200px;
