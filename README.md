@@ -32,3 +32,4 @@ npm run test:unit
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+simBlog文件夹为已打包项目
