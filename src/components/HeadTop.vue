@@ -49,6 +49,7 @@
             clearable
             class="input"
             size="small"
+            :disabled="true"
           ></el-input>
           <i class="must">*</i>
         </el-form-item>
