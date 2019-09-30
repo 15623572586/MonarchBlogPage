@@ -12,7 +12,7 @@
             <i class="date-show">{{item.createTime}}</i>
           </div>
           <div class="read-log">
-            <i class="read-show">阅读:{{"20 "}}评论:{{"30"}}</i>
+            <i class="read-show">阅读:{{"20 "}}点赞:{{"30"}}</i>
           </div>
         </div>
       </div>
@@ -89,6 +89,17 @@ export default {
         });
     },
     showContent(articleInfo) {
+      // axios("POST","modifyReadCount",articleInfo)
+      // .then(result=>{
+      //   if(result.data.status=="0"){
+
+      //   }else{
+      //     this.$emit("open","修正文章点击量失败！");
+      //   }
+      // })
+      // .catch(error=>{
+      //   this.$emit("open","修正文章点击量出错："+error)
+      // })
       this.$emit("showContent", articleInfo);
       this.$emit("getleftGridPersonalInfo", articleInfo.userId);
     }

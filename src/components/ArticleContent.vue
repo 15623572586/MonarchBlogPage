@@ -4,7 +4,7 @@
 			<div class="content">
 				<div class="content-head">
 					<b class="content-title">{{title}}</b>
-					<i class="content-i">{{"作者:"+author+" 阅读:"+readCount+" 评论:"+commentCount+" "+createTime}} </i>
+					<i class="content-i">{{"作者:"+author+" 阅读:"+readCount+" 点赞:"+surportCount+" "+createTime}} </i>
 				</div>
 				<div class="content-main">
 					<div class="ql-container ql-snow">
@@ -28,7 +28,7 @@ export default {
 			author:"",
 			createTime:"",
 			readCount:"20",
-			commentCount:"30",
+			surportCount:"30",
 		};
 	},
 	methods:{
@@ -37,7 +37,7 @@ export default {
 			this.content = articleInfo.content;
 			this.createTime = articleInfo.createTime
 			// this.readCount = articleInfo.readCount;
-			// this.commentCount = articleInfo.commentCount;
+			// this.surportCount = articleInfo.surportCount;
 			if(articleInfo.userId!="" && articleInfo.userId!=null){
 				var userIdData = {
 					userId : articleInfo.userId,

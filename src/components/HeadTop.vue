@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- :default-active="activeIndex2" 
-    width="1920"-->
     <el-menu
       :default-active="activeIndex2"
       class="el-menu-demo"
@@ -13,10 +11,7 @@
       style="width:100%"
     >
       <el-menu-item index="博客中心" style="margin-left:40px;">随笔中心</el-menu-item>
-      <!-- <el-menu-item index="消息中心">消息中心</el-menu-item> -->
-      <!-- <el-menu-item index="发表文章">发表随笔</el-menu-item> -->
-      <!-- <a href="# " target="_blank">订单管理</a> -->
-      <i class="copy-right">Copyright© 2019 YunHu Yu AllRightsReserved.</i>
+      <i class="copy-right">Copyright© 2019 YuYunHu AllRightsReserved.<br>鄂ICP备19023983号</i>
       <el-dropdown trigger="click" class="name">
         <span class="el-dropdown-link" style="color:white;">
           <i v-if="$store.state.userStatus.userName!=''">您好，{{$store.state.userStatus.userName}}</i>
@@ -33,7 +28,9 @@
             <el-dropdown-item class="clearfix" @click.native="getLoginUserInfo()">修改信息</el-dropdown-item>
             <el-dropdown-item class="clearfix" @click.native="getPersonalArticleList()">我的随笔</el-dropdown-item>
             <el-dropdown-item class="clearfix" @click.native="handleSelect('发表文章')">新建随笔</el-dropdown-item>
-            <el-dropdown-item class="clearfix" @click.native="getUserInfoList()" v-if="$store.state.userStatus.userId=='Upg+Fey49QiH+fzrejvTZg=='">用户管理</el-dropdown-item>
+            <div v-show="userManageFlag()">
+              <el-dropdown-item class="clearfix" @click.native="getUserInfoList()" >用户管理</el-dropdown-item>
+            </div>
             <el-dropdown-item class="clearfix" @click.native="logOut()">退出登录</el-dropdown-item>
           </div>
         </el-dropdown-menu>
@@ -188,6 +185,14 @@ export default {
     },
     getPersonalInfo() {
       this.$emit("getPersonalInfo");
+    },
+    userManageFlag(){
+      var userId = this.$store.state.userStatus.userId;
+      console.log(userId)
+      if(userId=='Upg+Fey49QiH+fzrejvTZg=='){
+        return true;
+      }
+      return false;
     },
     getUserInfoList() {
       this.$emit("getUserInfoList");
