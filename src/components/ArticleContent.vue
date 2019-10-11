@@ -1,61 +1,61 @@
 <template>
   <div>
-		<div class="article-content">
-			<div class="content">
-				<div class="content-head">
-					<b class="content-title">{{title}}</b>
-					<i class="content-i">{{"作者:"+author+" 阅读:"+readCount+" 点赞:"+surportCount+" "+createTime}} </i>
-				</div>
-				<div class="content-main">
-					<div class="ql-container ql-snow">
-						<div class="ql-editor" v-html="content" style="color:white">
-							<!-- <Xqs class="details_box" > </Xqs> -->
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="article-content">
+      <div class="content">
+        <div class="content-head">
+          <b class="content-title">{{title}}</b>
+          <i class="content-i">{{"作者:"+author+" 阅读:"+readCount+" 点赞:"+surportCount+" "+createTime}}</i>
+        </div>
+        <div class="content-main">
+          <div class="ql-container ql-snow">
+            <div class="ql-editor" v-html="content" style="color:white">
+              <!-- <Xqs class="details_box" > </Xqs> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import axios from "@/axiosConfig.js"
+import axios from "@/axiosConfig.js";
 export default {
   data: function() {
     return {
-			title:"",
-			content:"",
-			author:"",
-			createTime:"",
-			readCount:"20",
-			surportCount:"30",
-		};
-	},
-	methods:{
-		showArticleContent(articleInfo){
-			this.title = articleInfo.title;
-			this.content = articleInfo.content;
-			this.createTime = articleInfo.createTime
-			// this.readCount = articleInfo.readCount;
-			// this.surportCount = articleInfo.surportCount;
-			if(articleInfo.userId!="" && articleInfo.userId!=null){
-				var userIdData = {
-					userId : articleInfo.userId,
-				}
-				axios("GET","/getOneUserInfo",userIdData)
-				.then(result=>{
-					if(result.data.error!=null || result.data.error!=undefined){
-						this.$emit("open",result.data.error);
-					}else{
-						this.author = result.data.userName;
-					}
-				})
-				.catch(error=>{
-					this.$emit("open",error.data)
-				})
-			}
-		},
-	}
+      title: "",
+      content: "",
+      author: "",
+      createTime: "",
+      readCount: "0",
+      surportCount: "30"
+    };
+  },
+  methods: {
+    showArticleContent(articleInfo) {
+      this.title = articleInfo.title;
+      this.content = articleInfo.content;
+      this.createTime = articleInfo.createTime;
+      this.readCount = articleInfo.readCount;
+      // this.surportCount = articleInfo.surportCount;
+      if (articleInfo.userId != "" && articleInfo.userId != null) {
+        var userIdData = {
+          userId: articleInfo.userId
+        };
+        axios("GET", "/getOneUserInfo", userIdData)
+          .then(result => {
+            if (result.data.error != null || result.data.error != undefined) {
+              this.$emit("open", result.data.error);
+            } else {
+              this.author = result.data.userName;
+            }
+          })
+          .catch(error => {
+            this.$emit("open", error.data);
+          });
+      }
+    }
+  }
 };
 </script>
 
@@ -68,31 +68,31 @@ export default {
   height: 1100px;
   line-height: 40px;
 }
-.content{
-	height: 820px;
-	/* background: yellow; */
+.content {
+  height: 820px;
+  /* background: yellow; */
 }
-.content-head{
-	line-height: 50px;
-	/* background: yellowgreen; */
+.content-head {
+  line-height: 50px;
+  /* background: yellowgreen; */
 }
-.content-title{
-	text-align: center;
-	font-size: 24px;
-	color: aliceblue
+.content-title {
+  text-align: center;
+  font-size: 24px;
+  color: aliceblue;
 }
-.content-i{
-	font-size: 6px;
-	float: right;
-	color: wheat
+.content-i {
+  font-size: 6px;
+  float: right;
+  color: wheat;
 }
-.content-main{
-	height: 920px;
-	text-align: left;
-	/* background: yellow; */
+.content-main {
+  height: 920px;
+  text-align: left;
+  /* background: yellow; */
 }
-.content-text{
-	color: white;
-	font-size: 20px;
+.content-text {
+  color: white;
+  font-size: 20px;
 }
 </style>

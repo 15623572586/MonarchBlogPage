@@ -11,7 +11,7 @@
       style="width:100%"
     >
       <el-menu-item index="博客中心" style="margin-left:40px;">随笔中心</el-menu-item>
-      <i class="copy-right">Copyright© 2019 YuYunHu AllRightsReserved.<br>鄂ICP备19023983号</i>
+      <i class="copy-right">Copyright© 2019 YuYunHu AllRightsReserved.<br>鄂 ICP备19023983号</i>
       <el-dropdown trigger="click" class="name">
         <span class="el-dropdown-link" style="color:white;">
           <i v-if="$store.state.userStatus.userName!=''">您好，{{$store.state.userStatus.userName}}</i>

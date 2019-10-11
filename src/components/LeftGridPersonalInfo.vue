@@ -91,7 +91,20 @@ export default {
         });
     },
     showContent(articleInfo) {
-      this.$emit("showContent", articleInfo);
+      axios("POST","/modifyReadCount",articleInfo)
+      .then(result=>{
+        if(result.data.status=="0"){
+          articleInfo.readCount = result.data.readCount;
+          this.$emit("showContent", articleInfo);
+        }else{
+          this.$emit("open",result.data.msg)
+          console.log(result.data.msg);
+        }
+      })
+      .catch(error=>{
+        this.$emit("open",result.data.msg)
+        console.log(error);
+      })
     }
   }
 };

@@ -89,19 +89,21 @@ export default {
         });
     },
     showContent(articleInfo) {
-      // axios("POST","modifyReadCount",articleInfo)
-      // .then(result=>{
-      //   if(result.data.status=="0"){
-
-      //   }else{
-      //     this.$emit("open","修正文章点击量失败！");
-      //   }
-      // })
-      // .catch(error=>{
-      //   this.$emit("open","修正文章点击量出错："+error)
-      // })
-      this.$emit("showContent", articleInfo);
-      this.$emit("getleftGridPersonalInfo", articleInfo.userId);
+      axios("POST","/modifyReadCount",articleInfo)
+      .then(result=>{
+        if(result.data.status=="0"){
+          articleInfo.readCount = result.data.readCount;
+          this.$emit("showContent", articleInfo);
+          this.$emit("getleftGridPersonalInfo", articleInfo.userId);
+        }else{
+          this.$emit("open",result.data.msg)
+          console.log(result.data.msg);
+        }
+      })
+      .catch(error=>{
+        this.$emit("open",result.data.msg)
+        console.log(error);
+      })
     }
   }
 };
