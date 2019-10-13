@@ -23,10 +23,10 @@
           style="float:left;"
           background
           layout="prev, pager, next"
-					:current-page.sync="currentPage"
+          :current-page.sync="currentPage"
           :page-size="pageSize"
           :total="total"
-					@current-change="currentPageChange()"
+          @current-change="currentPageChange()"
         ></el-pagination>
       </div>
     </div>
@@ -38,25 +38,29 @@ import axios from "@/axiosConfig.js";
 export default {
   data: function() {
     return {
-			articleList: [],
-			totalArticleList:[],
-			currentPage:1,
-			pageSize:20,
+      articleList: [],
+      totalArticleList: [],
+      currentPage: 1,
+      pageSize: 20,
       total: 0
     };
   },
   methods: {
-		currentPageChange(){
-			this.displayList();
-		},
-		displayList(){
-			this.articleList = [];
-			var start = (this.currentPage-1)*this.pageSize;
-			var end = start+this.pageSize;
-			for (let index = start; index < end && this.totalArticleList[index]!=null; index++) {
-				this.articleList.push(this.totalArticleList[index]);
-			}
-		},
+    currentPageChange() {
+      this.displayList();
+    },
+    displayList() {
+      this.articleList = [];
+      var start = (this.currentPage - 1) * this.pageSize;
+      var end = start + this.pageSize;
+      for (
+        let index = start;
+        index < end && this.totalArticleList[index] != null;
+        index++
+      ) {
+        this.articleList.push(this.totalArticleList[index]);
+      }
+    },
     getArticleList() {
       axios("GET", "/getArticleList", null)
         .then(result => {
@@ -65,14 +69,14 @@ export default {
           } else {
             // this.articleList = result.data.articleList;
             this.totalArticleList = result.data.articleList;
-						this.total = result.data.total;
-						this.displayList();
+            this.total = result.data.total;
+            this.displayList();
           }
         })
         .catch(error => {
           this.$emit("open", error.data);
         });
-		},
+    },
     getPersonalArticleList() {
       var userId = this.$store.state.userStatus.userId;
       axios("GET", "/getArticleList", { userId: userId })
@@ -89,21 +93,21 @@ export default {
         });
     },
     showContent(articleInfo) {
-      axios("POST","/modifyReadCount",articleInfo)
-      .then(result=>{
-        if(result.data.status=="0"){
-          articleInfo.readCount = result.data.readCount;
-          this.$emit("showContent", articleInfo);
-          this.$emit("getleftGridPersonalInfo", articleInfo.userId);
-        }else{
-          this.$emit("open",result.data.msg)
-          console.log(result.data.msg);
-        }
-      })
-      .catch(error=>{
-        this.$emit("open",result.data.msg)
-        console.log(error);
-      })
+      axios("POST", "/modifyReadCount", articleInfo)
+        .then(result => {
+          if (result.data.status == "0") {
+            articleInfo.readCount = result.data.readCount;
+            this.$emit("showContent", articleInfo);
+            this.$emit("getleftGridPersonalInfo", articleInfo.userId);
+          } else {
+            this.$emit("open", result.data.msg);
+            console.log(result.data.msg);
+          }
+        })
+        .catch(error => {
+          this.$emit("open","查看文章时出错："+error);
+          console.log(error);
+        });
     }
   }
 };
@@ -121,7 +125,7 @@ export default {
 .list {
   height: 820px;
   width: 1500px;
-	/* background-color: darkgrey */
+  /* background-color: darkgrey */
 }
 .link {
   width: 1200px;

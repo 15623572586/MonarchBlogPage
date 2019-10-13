@@ -51,7 +51,7 @@ import articleContent from "@/components/ArticleContent.vue";
 import quilEditor from "@/components/QuilEditor.vue";
 import calendar from "@/components/Calendar.vue";
 import leftGridPersonalInfo from "@/components/LeftGridPersonalInfo.vue";
-import leftGrid from "@/components/LeftGrid.vue";
+// import leftGrid from "@/components/LeftGrid.vue";
 
 export default {
   components: {
@@ -62,7 +62,6 @@ export default {
     quilEditor,
     calendar,
     leftGridPersonalInfo,
-    leftGrid,
   },
   data() {
     return {
@@ -73,11 +72,11 @@ export default {
       leftGridPersonalInfoFlag: false
     };
   },
-  mounted:function() {
+  mounted: function() {
     this.showComponent("博客中心");
   },
   methods: {
-    getPersonalArticleList(){
+    getPersonalArticleList() {
       this.flagToFalse();
       this.articleListFlag = true;
       this.$refs["articleList"].getPersonalArticleList();
@@ -110,11 +109,11 @@ export default {
     getleftGridPersonalInfo(userId) {
       this.$refs["leftGridPersonalInfo"].getPersonalInfo(userId);
     },
-    flagToFalse(){
+    flagToFalse() {
       this.articleListFlag = false;
       this.articleContentFlag = false;
       this.userManagementFlag = false;
-      this.publishArticleFlag =false;
+      this.publishArticleFlag = false;
       this.leftGridPersonalInfoFlag = false;
     },
     //弹窗提示内容
@@ -126,7 +125,7 @@ export default {
         // }
       });
     }
-  },
+  }
 };
 </script>
 

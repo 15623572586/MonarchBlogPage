@@ -23,25 +23,24 @@
           <label>-------------【 他的随笔 】---------------</label>
         </div>
         <div v-for="(item,index) in displayList" :key="index">
-        <!-- <div v-for="(item,index) in personalInfo.articleList" :key="index"> -->
+          <!-- <div v-for="(item,index) in personalInfo.articleList" :key="index"> -->
           <el-link @click="showContent(item)" :underline="false">
             <li class="title">{{item.title}}</li>
           </el-link>
         </div>
       </div>
-			<div class="pager-back" v-show="total>20">
-				<el-pagination
-					small
+      <div class="pager-back" v-show="total>20">
+        <el-pagination
+          small
           background
-					layout="prev, pager, next"
-					:current-page.sync="currentPage"
+          layout="prev, pager, next"
+          :current-page.sync="currentPage"
           :page-size="pageSize"
-					:total="total"
-					@current-change="currentPageChange()"
-					class="pager"
-					>
-				</el-pagination>
-			</div>
+          :total="total"
+          @current-change="currentPageChange()"
+          class="pager"
+        ></el-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -55,56 +54,60 @@ export default {
         blogAge: "",
         birthDay: "",
         blogCount: "",
-        articleList: [],
+        articleList: []
       },
-			displayList:[],
-			currentPage:1,
-			pageSize:20,
-			total: 0
+      displayList: [],
+      currentPage: 1,
+      pageSize: 20,
+      total: 0
     };
   },
   methods: {
-		currentPageChange(){
-			this.setDisplayList();
-		},
-		setDisplayList(){
-			this.total = this.personalInfo.articleList.length;
-			this.displayList = [];
-			var start = (this.currentPage-1)*this.pageSize;
-			var end = start+this.pageSize;
-			for (let index = start; index < end && this.personalInfo.articleList[index]!=null; index++) {
-				this.displayList.push(this.personalInfo.articleList[index]);
-			}
-		},
+    currentPageChange() {
+      this.setDisplayList();
+    },
+    setDisplayList() {
+      this.total = this.personalInfo.articleList.length;
+      this.displayList = [];
+      var start = (this.currentPage - 1) * this.pageSize;
+      var end = start + this.pageSize;
+      for (
+        let index = start;
+        index < end && this.personalInfo.articleList[index] != null;
+        index++
+      ) {
+        this.displayList.push(this.personalInfo.articleList[index]);
+      }
+    },
     getPersonalInfo(userId) {
       axios("GET", "/getUserInfoAndArticle", { userId: userId })
         .then(res => {
           if (res.data.error == null) {
-						this.personalInfo = res.data;
-						this.setDisplayList();
+            this.personalInfo = res.data;
+            this.setDisplayList();
           } else {
             this.$emit("open", res.data.error);
           }
         })
         .catch(error => {
-          this.$emit("open", "获取笔者信息和文章列表时出错！");
+          this.$emit("open", "获取笔者信息和文章列表时出错！"+error);
         });
     },
     showContent(articleInfo) {
-      axios("POST","/modifyReadCount",articleInfo)
-      .then(result=>{
-        if(result.data.status=="0"){
-          articleInfo.readCount = result.data.readCount;
-          this.$emit("showContent", articleInfo);
-        }else{
-          this.$emit("open",result.data.msg)
-          console.log(result.data.msg);
-        }
-      })
-      .catch(error=>{
-        this.$emit("open",result.data.msg)
-        console.log(error);
-      })
+      axios("POST", "/modifyReadCount", articleInfo)
+        .then(result => {
+          if (result.data.status == "0") {
+            articleInfo.readCount = result.data.readCount;
+            this.$emit("showContent", articleInfo);
+          } else {
+            this.$emit("open", result.data.msg);
+            console.log(result.data.msg);
+          }
+        })
+        .catch(error => {
+          this.$emit("open","查看文章时出错："+error);
+          console.log(error);
+        });
     }
   }
 };
@@ -118,7 +121,7 @@ export default {
   color: aquamarine;
   background: rgba(255, 255, 255, 0.1);
   text-align: left;
-	height: 770px;
+  height: 770px;
   line-height: 26px;
 }
 .title {
@@ -128,21 +131,21 @@ export default {
   color: aqua;
 }
 .personal-info {
-	height: 130px;
+  height: 130px;
   width: 100%;
 }
-.article-list{
-	height: 560px;
+.article-list {
+  height: 560px;
   width: 100%;
 }
 .info {
   margin-left: 20px;
 }
-.pager-back{
-	height: 86px;
+.pager-back {
+  height: 86px;
   width: 100%;
 }
-.pager{
-	padding: 20px 0 0 50px;
+.pager {
+  padding: 20px 0 0 50px;
 }
 </style>
