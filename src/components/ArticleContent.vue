@@ -34,7 +34,7 @@ export default {
       author: "",
       createTime: "",
       readCount: "0",
-      surportCount: "30"
+      surportCount: "0"
     };
   },
   methods: {
@@ -44,7 +44,7 @@ export default {
       this.content = articleInfo.content;
       this.createTime = articleInfo.createTime;
       this.readCount = articleInfo.readCount;
-      // this.surportCount = articleInfo.surportCount;
+      this.surportCount = articleInfo.surportCount;
       if (articleInfo.userId != "" && articleInfo.userId != null) {
         var userIdData = {
           userId: articleInfo.userId
@@ -72,6 +72,7 @@ export default {
       .then(result=>{
         let res = result.data;
         if(res.status=="0"){
+          this.surportCount = res.surportCount;
           this.$message("点赞成功！");
         }else{
           this.$message(res.msg);
@@ -131,5 +132,6 @@ export default {
   cursor: pointer;
   float: left;
   color: aqua;
+  font-size: 24px;
 }
 </style>
