@@ -148,6 +148,7 @@
 <script>
 import axios from "@/axiosConfig.js";
 import Crypto from "@/crypto.js";
+import store from "@/store.js";
 
 export default {
   data() {
@@ -290,10 +291,8 @@ export default {
       axios("POST", "/sinup", formatData)
         .then(result => {
           if (result.data == "0") {
+            store.commit("setUserStatus", formatData);
             self.dialogFormVisible = false;
-            self.open(
-              "信息修改成功（由于个浏览器兼容性不一致，如果您的信息显示异常，请刷新重新加载页面！）"
-            );
           } else {
             self.open(result.data);
           }
