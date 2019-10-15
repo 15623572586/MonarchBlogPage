@@ -74,7 +74,7 @@ export default {
           }
         })
         .catch(error => {
-          this.$emit("open", error.data);
+          this.$emit("open", error);
         });
     },
     getPersonalArticleList() {
@@ -89,7 +89,7 @@ export default {
           }
         })
         .catch(error => {
-          this.$emit("open", error.data);
+          this.$emit("open", error);
         });
     },
     showContent(articleInfo) {

@@ -143,7 +143,7 @@ export default {
   /* position: absolute; */
   /* width: 1920px;; */
   width: 100%;
-  margin: 2px auto 2px auto;
+  margin: 0px auto 0px auto;
   /* margin: auto; */
 }
 </style>
