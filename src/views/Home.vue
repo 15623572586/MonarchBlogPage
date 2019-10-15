@@ -1,6 +1,7 @@
 <template>
   <el-container class="page-background">
-    <el-row type="flex" class="row-bg" justify="center" style="margin-left:200px;">
+    <el-row type="flex" class="row-bg" justify="center" style="margin: 0px auto 0px auto;">
+    <!-- <el-row type="flex" class="row-bg" justify="center" style="margin-left:200px;"> -->
       <el-col :span="24">
         <div class="grid-content"></div>
         <el-header>
@@ -142,5 +143,7 @@ export default {
   /* position: absolute; */
   /* width: 1920px;; */
   width: 100%;
+  margin: 2px auto 2px auto;
+  /* margin: auto; */
 }
 </style>

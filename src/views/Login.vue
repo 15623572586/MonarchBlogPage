@@ -312,6 +312,7 @@ export default {
   height: 100%;
   position: fixed;
   width: 100%;
+  margin: 2px auto 2px auto;
 }
 
 .ms-title {
