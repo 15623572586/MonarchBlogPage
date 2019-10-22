@@ -40,6 +40,8 @@
           </el-main>
         </el-container>
       </el-col>
+      <!-- <el-footer class="footer"><i>Copyright© 2019 YuYunHu AllRightsReserved.
+        鄂 ICP备19023983号</i> </el-footer> -->
     </el-row>
   </el-container>
 </template>
@@ -52,7 +54,6 @@ import articleContent from "@/components/ArticleContent.vue";
 import quilEditor from "@/components/QuilEditor.vue";
 import calendar from "@/components/Calendar.vue";
 import leftGridPersonalInfo from "@/components/LeftGridPersonalInfo.vue";
-// import leftGrid from "@/components/LeftGrid.vue";
 
 export default {
   components: {
@@ -145,5 +146,11 @@ export default {
   width: 100%;
   margin: 0px auto 0px auto;
   /* margin: auto; */
+}
+.footer{
+  color: white;
+  float: left;
+  position: absolute;
+  margin-top: 1160px;
 }
 </style>

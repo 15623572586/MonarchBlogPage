@@ -12,7 +12,7 @@
             <i class="date-show">{{item.createTime}}</i>
           </div>
           <div class="read-log">
-            <i class="read-show">阅读:{{"20 "}}点赞:{{"30"}}</i>
+            <i class="read-show">阅读:{{item.readCount+" "}}点赞:{{item.surportCount+" "}}</i>
           </div>
         </div>
       </div>
