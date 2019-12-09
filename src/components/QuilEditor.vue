@@ -107,7 +107,8 @@ export default {
           ImageExtend: {
             loading: true,
             name: 'img',
-            action: "/api/imgUpload",
+            action: "/simBlogServer/imgUpload",
+            // action: "/api/imgUpload",
             response: (res) => {
               return res.url
             }
